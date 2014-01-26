@@ -10,7 +10,7 @@ require( ["src/Automaton",
 function(Automaton,Renderer){
   var row = [1],
       iteration = 0,
-      maxiteration = 50,
+      maxiteration = 5,
       startBtn = document.getElementById("startbtn"),
       stopBtn = document.getElementById("stopbtn"),
       content = document.getElementById("content"),
@@ -41,11 +41,11 @@ function(Automaton,Renderer){
 
   function drawAndCalculate() {
     //draw first, then calculate, so that we're ready to draw right away
-    if(iteration > maxiteration) {
+    /*if(iteration > maxiteration) {
       iteration = 0;
       clearInterval(interval);
       return;
-    }
+    }*/
     Renderer.render(row,iteration);
     row = Automaton.translate(row,rule);
     iteration++;

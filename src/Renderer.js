@@ -1,40 +1,42 @@
 define(["lib/d3"],function(d3) {
 
-  var svg, x, y, dataset = [],blockHeight,blockWidth,max,
-  viewWidth =  document.documentElement.clientWidth || 800,
-  viewHeight = document.documentElement.clientHeight || 800;
-  
+  var svg, x, y, dataset = [],blockHeight,blockWidth,
+    viewWidth =  document.documentElement.clientWidth   || 800,
+    viewHeight = document.documentElement.clientHeight -100 || 800,
+    width = viewWidth,
+    height = viewHeight;
+
   var Renderer = {
    
-    init: function(target,numIterations){
-
-      var enter,
-          margin = {top: 40, right: 20, bottom: 40, left: 20},
-          width = viewWidth- margin.left - margin.right,
-          height = viewHeight - margin.top - margin.bottom;
+    init: function(target){
 
       x = d3.scale.linear()
           .range([0,width])
-          .domain([0-numIterations,numIterations]);
+          .domain([0,0]);
 
       y = d3.scale.linear()
           .range([0,height])
-          .domain([0,numIterations]);
+          .domain([1,1]);
       
-      blockHeight = height/numIterations;
-      blockWidth = width/(numIterations*2+1);
-      //stop after the max iterations
-      max = numIterations;
+      blockHeight = height/2;
+      blockWidth = width/3;
       // An SVG element with a bottom-right origin.
       svg = d3.select(target).append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom);
+          .attr("width", width )
+          .attr("height", height);
     },
 
     render: function(row,iteration) {
-      if(iteration > max) {
-        //if we're not going to be able to see it, don't do anything
-        return;
+      if(iteration > 500) {
+        //don't run forever and blow up someone's browser
+        return false;
+      }
+
+      if(iteration > 1) {
+        x = x.domain([0-iteration,iteration]);
+        y = y.domain([1,iteration]);
+        blockHeight = height / iteration ;
+        blockWidth = width/(iteration * 2 + 1)*.8;
       }
       var dataPoints = row.map(function(point,index,fullrow) {
         return {
@@ -45,6 +47,17 @@ define(["lib/d3"],function(d3) {
       });
       dataset = dataset.concat(dataPoints);
       svg.selectAll("rect")
+        .transition()
+        .attr("height",blockHeight)
+        .attr("width",blockWidth)
+        .attr("x", function(d) {
+          return x(d.x);
+        })
+        .attr("y", function(d) {
+          return y(d.y);
+        });
+      
+      svg.selectAll("rect")
         .data(dataset)
         .enter()
         .append("svg:rect")
@@ -52,7 +65,7 @@ define(["lib/d3"],function(d3) {
           return x(d.x);
         })
         .attr("y", function(d) { 
-          return y(d.y)
+          return y(d.y);
         })
         .attr("height",blockHeight)
         .attr("width",blockWidth)

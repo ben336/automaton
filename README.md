@@ -18,6 +18,8 @@ I tested the code on the latest versions of Chrome, FF, Safari and Mobile Safari
 
 I attempted to keep the design flexible.  It would be relatively easy to make the rule # flexible (IE choose rule 25 or rule 30), as well as other things like the iteration speed (iterate every # ms).  It also would be fairly simple to implement this as a CLI using Node, though the AMD format may be a pain in that case. 
 
+I did not minimize the assets.  I thought that it might be good to make it easy to inspect in the browser and didn't want to rely on source maps.  This would be a good thing to do in general though as their is currently a slight lag before the assets are loaded and the buttons become clickable.
+
 ### Concerns / Bugs
 
 I cut off iterations at 200 because there were performance issues beyond that.  Even 200 might kill a smartphone.  Its more or less a consequence of writing a large number of nodes to the DOM though.  The current design is efficient, I'm not recalculating the nodes each time, but .  If scale is an issue, I can remove the resizing each time though (maybe resize every 10 iterations instead?), as that should be the main rendering cost (resize every node each render), but that will still be a huge cost each time at scale.

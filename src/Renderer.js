@@ -8,18 +8,18 @@ define(["lib/d3"],function(d3) {
     init: function(target){
       //reset the viewport each time we start a new 
       width =  document.documentElement.clientWidth   || 800;
-      height = document.documentElement.clientHeight -100 || 800;
+      height = document.documentElement.clientHeight - 100 || 800;
       //set up our initial scale for the first element
       x = d3.scale.linear()
           .range([0,width])
-          .domain([0,0]);
+          .domain([-2,2]);
 
       y = d3.scale.linear()
           .range([0,height])
           .domain([1,1]);
       
       blockHeight = height/2;
-      blockWidth = width/2;
+      blockWidth = width*4/25;
 
       // we're creating an SVG container in the target div to hold our automaton
       svg = d3.select(target).append("svg")
@@ -34,12 +34,11 @@ define(["lib/d3"],function(d3) {
         return false;
       }
 
-      if(iteration > 1) {
-        x = x.domain([0-iteration,iteration]);
-        y = y.domain([1,iteration]);
-        blockHeight = height / iteration ;
-        blockWidth = width / (iteration * 2 + 1) * 0.8;
-      }
+      x = x.domain([0-iteration,iteration]);
+      y = y.domain([2,iteration]);
+      blockHeight = height / iteration ;
+      blockWidth = width / (iteration * 2 + 1) * 0.8;
+
       var dataPoints = row.map(function(point,index,fullrow) {
         return {
           x: index - Math.floor(fullrow.length/2),
@@ -79,7 +78,6 @@ define(["lib/d3"],function(d3) {
 
   };
  
-
   return Renderer;
 
 });

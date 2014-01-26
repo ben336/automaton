@@ -10,7 +10,7 @@ require( ["src/Automaton",
 function(Automaton,Renderer) {
 
   var row = [1],
-      iteration = 0,
+      iteration = 1,
       timeinterval = 2000,
       startBtn = document.getElementById("startbtn"),
       stopBtn = document.getElementById("stopbtn"),
@@ -19,22 +19,27 @@ function(Automaton,Renderer) {
       interval;
   
   startBtn.addEventListener("click",function() {
-    if(iteration>0) { 
+    if(iteration > 1) { 
       //don't want to do anything if we're already running
       return false;
     }
-    //clear any existing chart
-    Renderer.clear(content);
+
+
     //reset variables
     row= [1];
-    iteration = 1;
+    //start with iteration 2 so we're drawing right away
+    //iteration 1 would be empty / all 0s
+    iteration = 2;
 
     //set up the renderer with first time stuff
+
+    Renderer.clear(content);
     Renderer.init(content);
 
-    interval = setInterval(drawAndCalculate , timeinterval); 
-    //do the first draw now
+
+    //do the first draw now and schedule the rest
     drawAndCalculate();
+    interval = setInterval(drawAndCalculate , timeinterval); 
 
     //toggle button classes
     startBtn.classList.add("disabled");
@@ -43,7 +48,7 @@ function(Automaton,Renderer) {
 
   stopBtn.addEventListener("click",function() {
     //go back to the start and kill the repeating process
-    iteration = 0;
+    iteration = 1;
     clearInterval(interval);
 
     //toggle the button classes

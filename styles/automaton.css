@@ -1,0 +1,49 @@
+* {
+   padding:0;
+   margin:0;
+   box-sizing: border-box;
+}
+
+.controls {
+  margin: 10px auto 0 auto;
+  width: 300px;
+  padding:0px;
+}
+
+.btn {
+
+  height: 30px;
+  width: 120px;
+  margin: 0 14px;
+  background-color:black;
+  color:white;
+  border-radius: 15px;
+  border: 0;
+  font: 20px/30px Helvetica,Arial,sans-serif;
+  cursor:pointer;
+}
+
+.btn.disabled {
+  color: #ccc; 
+  cursor:default;
+}
+
+
+
+
+
+#startbtn {
+  background-color:#258b6f; 
+}
+
+#startbtn.disabled {
+  background-color:#054b28;
+}
+
+#stopbtn {
+  background-color: #d49838;
+}
+
+#stopbtn.disabled {
+  background-color:#a46808;
+}

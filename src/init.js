@@ -27,11 +27,16 @@ function(Automaton,Renderer){
     iteration = 1;
     Renderer.init(content,maxiteration);
     interval = setInterval(drawAndCalculate,2000); 
+    drawAndCalculate();
+    startBtn.classList.add("disabled");
+    stopBtn.classList.remove("disabled");
   });
 
   stopBtn.addEventListener("click",function() {
     iteration = 0;
     clearInterval(interval);
+    stopBtn.classList.add("disabled");
+    startBtn.classList.remove("disabled");
   });
 
   function drawAndCalculate() {

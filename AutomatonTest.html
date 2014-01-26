@@ -12,10 +12,18 @@
   <script type="text/javascript" src="lib/jasmine-2.0.0/boot.js"></script>
 
   <script type="text/javascript" src="lib/require.js"></script>
-  <script type="text/javascript" src="spec/AutomatonSpec.js"></script>
+  <script>
+  require(["spec/AutomatonSpec","spec/RendererSpec"], function(){
+    window.onload();
+  });
+</script>
+
 
 </head>
 
 <body>
+<div id="testarea"></div>
+
+
 </body>
 </html>

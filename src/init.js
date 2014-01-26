@@ -1,29 +1,24 @@
-requirejs.config({
-  "lib/d3": {
-    exports:["d3"]
-  }
-});
+requirejs.config({ "lib/d3": { exports:["d3"]} });
 
-require( ["src/Automaton",
-          "src/Renderer"],
+// Set up click handlers for the buttons, and then delegate drawing to 
+//the renderer and calculation to the Automaton
+require( ["src/Automaton", "src/Renderer"], function(Automaton,Renderer) {
 
-function(Automaton,Renderer) {
-
-  var row = [1],
-      iteration = 1,
+  var row, iteration, interval,
       timeinterval = 2000,
+      rule = 30,
       startBtn = document.getElementById("startbtn"),
       stopBtn = document.getElementById("stopbtn"),
-      content = document.getElementById("content"),
-      rule =30,
-      interval;
+      content = document.getElementById("content");
   
-  startBtn.addEventListener("click",function() {
+  startBtn.addEventListener("click",startRendering);
+  stopBtn.addEventListener("click",stopRendering);
+
+  function startRendering() {
     if(iteration > 1) { 
       //don't want to do anything if we're already running
       return false;
     }
-
 
     //reset variables
     row= [1];
@@ -32,21 +27,20 @@ function(Automaton,Renderer) {
     iteration = 2;
 
     //set up the renderer with first time stuff
-
     Renderer.clear(content);
     Renderer.init(content);
 
-
-    //do the first draw now and schedule the rest
+    //do the first draw now, add an iteration and schedule the rest
+    drawAndCalculate();
     drawAndCalculate();
     interval = setInterval(drawAndCalculate , timeinterval); 
 
     //toggle button classes
     startBtn.classList.add("disabled");
     stopBtn.classList.remove("disabled");
-  });
+  }
 
-  stopBtn.addEventListener("click",function() {
+  function stopRendering() {
     //go back to the start and kill the repeating process
     iteration = 1;
     clearInterval(interval);
@@ -54,7 +48,8 @@ function(Automaton,Renderer) {
     //toggle the button classes
     stopBtn.classList.add("disabled");
     startBtn.classList.remove("disabled");
-  });
+  }
+
 
   //draws the new row and then runs the calculation for the next one
   function drawAndCalculate() {
@@ -64,4 +59,3 @@ function(Automaton,Renderer) {
   }
 
 });
-

@@ -1,11 +1,12 @@
-require(["src/Automaton"],function(Automaton) {
+define(["src/Automaton"],function(Automaton) {
 
-  describe("Automaton", function() {
+  describe("An Automaton", function() {
 
     it("should be loadable with RequireJS", function() {
 
       expect(Automaton).toBeDefined();
     });
+    
     it("should have a translate method that takes an array of length n and a number as arguments and return an array of n+2", function() {
       //not testing this too strenuously here, just a basic example
       var input = [1 , 0 , 1];
@@ -27,8 +28,6 @@ require(["src/Automaton"],function(Automaton) {
       expect(output).toEqual([1,1,0,1]);
     });
   });
-
-  window.onload();
 
 
 });

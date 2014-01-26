@@ -24,7 +24,6 @@ define(function() {
           return ruleMap[key];
         });
       }
-
     };
 
     /* Creates an array representing the binary state of the

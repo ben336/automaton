@@ -29,7 +29,7 @@ define(["lib/d3"],function(d3) {
 
     //this renders a new row and transforms the old rows to match the new sizes
     render: function(row,iteration) {
-      if(iteration > 500) {
+      if(iteration > 200) {
         //don't run forever and blow up someone's browser
         return false;
       }

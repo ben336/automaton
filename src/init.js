@@ -4,7 +4,7 @@ requirejs.config({ "lib/d3": { exports:["d3"]} });
 //the renderer and calculation to the Automaton
 require( ["src/Automaton", "src/Renderer"], function(Automaton,Renderer) {
 
-  var row, iteration, interval,
+  var row, iteration = 0, interval,
       timeinterval = 2000,
       rule = 30,
       startBtn = document.getElementById("startbtn"),
@@ -39,7 +39,7 @@ require( ["src/Automaton", "src/Renderer"], function(Automaton,Renderer) {
 
   function stopRendering() {
     //go back to the start and kill the repeating process
-    iteration = 1;
+    iteration = 0;
     clearInterval(interval);
 
     //toggle the button classes

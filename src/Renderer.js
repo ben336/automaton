@@ -35,9 +35,9 @@ define(["lib/d3"],function(d3) {
       }
 
       x = x.domain([0-iteration,iteration]);
-      y = y.domain([2,iteration]);
+      y = y.domain([1,iteration+1]);
       blockHeight = height / iteration ;
-      blockWidth = width / (iteration * 2 + 1) * 0.8;
+      blockWidth = width / (iteration * 2 + 1);
 
       var dataPoints = row.map(function(point,index,fullrow) {
         return {

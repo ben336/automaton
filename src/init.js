@@ -15,23 +15,20 @@ require( ["src/Automaton", "src/Renderer"], function(Automaton,Renderer) {
   stopBtn.addEventListener("click",stopRendering);
 
   function startRendering() {
-    if(iteration > 1) { 
+    if(iteration > 0) { 
       //don't want to do anything if we're already running
       return false;
     }
 
     //reset variables
     row= [1];
-    //start with iteration 2 so we're drawing right away
-    //iteration 1 would be empty / all 0s
-    iteration = 2;
+    iteration = 1;
 
     //set up the renderer with first time stuff
     Renderer.clear(content);
     Renderer.init(content);
 
     //do the first draw now, add an iteration and schedule the rest
-    drawAndCalculate();
     drawAndCalculate();
     interval = setInterval(drawAndCalculate , timeinterval); 
 
